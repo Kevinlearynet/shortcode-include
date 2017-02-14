@@ -9,7 +9,7 @@ if ( ! class_exists('Shortcode_Include') ) :
 
 class Shortcode_Include {
 	public $tag;
-	public $defaults;
+	public $include_path;
 
 	/**
 	 * Constructor
