@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Shortcode Include
-Plugin URI: https://www.kevinleary.net
+Plugin URI: https://github.com/Kevinlearynet/shortcode-include
 Description: Provide an interface to create shortcode that will pull in content from a defined include path.
 Version: 0.0.1
 Author: Kevin Leary
