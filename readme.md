@@ -1,3 +1,3 @@
 # Shortcode Generator
 
-A shortcode generator class for WordPress to be used inside of a plugin or theme.
+A shortcode generator plugin for WordPress that pull in an include file for use as a `[shortcode]` template.

@@ -1,44 +1,46 @@
 <?php
-/**
- * Shortcode Includes
- *
- * Provide an interface to create shortcode that will pull
- * in content from a defined include path.
- */
-if ( ! class_exists('Shortcode_Include') ) :
+/*
+Plugin Name: Shortcode Include
+Plugin URI: https://www.kevinleary.net
+Description: Provide an interface to create shortcode that will pull in content from a defined include path.
+Version: 0.0.1
+Author: Kevin Leary
+Author URI: https://www.kevinleary.net
+License: GPLv2 or later 
+*/
+if ( ! class_exists('SI_Init') ) :
 
-class Shortcode_Include {
-	public $tag;
-	public $include_path;
-
+class SI_Init 
+{
 	/**
-	 * Constructor
+	 * Initialize
 	 */
-	public function __construct( $args = array() ) {
-		if ( empty ( $args ) ) new WP_Error( 'shortcode-include', '$args Array is a required to instantiate ' . __class__ );
-
-		$this->tag = $args['tag'];
-		$this->include_path = $args['include_path'];
-
-		add_shortcode( $this->tag, array( $this, 'add_shortcode' ) );
+	public function __construct() {
+		$this->define();
 	}
 
 	/**
-	 * Shortcode Tag
+	 * Define Shortcodes
 	 */
-	public function add_shortcode( $attrs ) {
+	static public function define() {
 
-		// Extract contents of include
-		ob_start();
-		include_once( $this->include_path );
-		$output = ob_get_contents();
-		ob_end_clean();
+		// Shortcode builder class
+		require_once( __DIR__ . '/shortcode-class.php' );
 
-		// Wrap with a div for safety and return to the_content();
-		$html = '<div class="shortcode shortcode--' . $this->tag . '">' . $output . '</div>';
+		// Create Shortcode Object: [hello-world]
+		$hello_world = new SI_Shortcode( array(
+			'tag' => 'hello-world',
+			'include_path' => dirname( __FILE__ ) . '/shortcode-hello-world.php',
+		) );
 
-		return $html;
+		// Create Shortcode Object: [sunny-day]
+		$sunny_day = new SI_Shortcode( array(
+			'tag' => 'sunny-day',
+			'include_path' => dirname( __FILE__ ) . '/shortcode-sunny-day.php',
+		) );
 	}
 }
 
-endif; // end class_exists
+new SI_Init();
+
+endif;
